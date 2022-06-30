@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="Sistema de Facturacion Electronica/src"/>
+	<classpathentry kind="lib" path="Librerias/Atxy2k.jar"/>
+	<classpathentry kind="lib" path="Librerias/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="Librerias/NefAnimacion_V2.1_jdk18.jar"/>
+	<classpathentry kind="lib" path="Librerias/RojeruSan.lib.jar"/>
+	<classpathentry kind="lib" path="Librerias/rs2xml.jar"/>
+	<classpathentry kind="lib" path="Librerias/RSNotify v1.0.jar"/>
+	<classpathentry kind="lib" path="Librerias/RSPanelCircleBorder.jar"/>
+	<classpathentry kind="lib" path="Librerias/RSProgressBar.jar"/>
+	<classpathentry kind="lib" path="Librerias/RSUtilities.jar"/>
+	<classpathentry kind="lib" path="Librerias/sqljdbc4.jar"/>
+	<classpathentry kind="output" path="Sistema de Facturacion Electronica/build/classes"/>
+</classpath>

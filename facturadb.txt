@@ -1,0 +1,289 @@
+drop database factura_electronica
+create database factura_electronica
+
+use factura_electronica
+go
+
+set dateformat dmy
+
+create table estado (
+id_estado int not null primary key identity,
+estado varchar (50) not null
+)
+
+create table tipo_usuario (
+id_tipo int not null primary key identity,
+tipo_usuario varchar (50) not null,
+id_estado int not null references estado(id_estado)
+)
+
+create table cliente (
+id_cliente int not null primary key identity,
+nombre_cliente varchar (50) not null,
+apellidos_cliente varchar (50) not null,
+fecha_nacimiento date,
+compania varchar (50),
+direccion1 varchar (400) not null,
+direccion2 varchar (400),
+telefono1 numeric (8) not null,
+telefono2 numeric (8),
+email_cliente varchar (400) not null,
+nit_c numeric (14),
+dui_c numeric (9),
+ruc_C numeric (9),
+id_estado int not null references estado(id_estado)
+)
+
+create table usuario (
+id_usuario int not null primary key identity,
+usuario varchar (40) not null,
+nombre_usuario varchar (50),
+apellido_usuario varchar (50),
+imagen_usuario varchar (255) default 'sin imagen',
+contrasena_usuario varchar (40) not null,
+email_usuario varchar (400) not null,
+dui_usuario numeric(9) not null,
+telefono_usuario numeric(8),
+id_tipo int not null references tipo_usuario(id_tipo),
+id_estado int not null references estado(id_estado)
+)
+
+create table unidad (
+id_unidad_producto int not null primary key identity,
+unidad_producto varchar(50) not null,
+id_estado int not null references estado(id_estado)
+)
+
+create table presentacion (
+id_presentacion_producto int not null primary key identity,
+presentacion_producto varchar(50) not null,
+id_estado int not null references estado(id_estado)
+)
+
+create table categoria (
+id_categoria int not null primary key identity,
+imagen_categoria varchar (255) default 'sin imagen',
+nombre_categoria varchar (50),
+descripcion_categoria varchar (400),
+id_estado int not null references estado(id_estado)
+)
+
+create table producto (
+id_producto int not null primary key identity,
+imagen_producto varchar(255) default 'sin imagen',
+codigo_barras varchar(8),
+nombre_producto varchar(50),
+descripcion_producto varchar(400),
+precio_venta_producto numeric (9,2) check (precio_venta_producto>0),
+stock_activo int not null,
+stock_minimo int not null,
+valor_stock as stock_activo * precio_venta_producto,
+id_unidad_producto int not null references unidad(id_unidad_producto),
+id_presentacion_producto int not null references presentacion(id_presentacion_producto),
+id_categoria int not null references categoria(id_categoria),
+id_estado int not null references estado(id_estado)
+)
+
+create table tipo_pago (
+id_tpago int not null primary key identity,
+tipo_pago varchar (50),
+detalles varchar (400) ,
+id_estado int not null references estado(id_estado)
+)
+
+create table estado_factura (
+id_estado_factura int not null primary key identity,
+estado_factura varchar(50),
+descripcion_factura varchar(500),
+id_estado int not null references estado(id_estado)
+)
+
+create table tipo_factura (
+id_tipo_factura int not null primary key identity,
+tipo_factura varchar(50),
+id_estado int not null references estado(id_estado)
+)
+
+create table impuesto_iva (
+impuesto_factura numeric(10,3) not null check (impuesto_factura >= 0) primary key
+)
+
+create table factura (
+id_factura int not null primary key identity,
+fecha_factura date not null,
+id_cliente int not null references cliente(id_cliente),
+id_tpago int not null references tipo_pago(id_tpago),
+id_estado_factura int not null references estado_factura(id_estado_factura),
+id_tipo_factura int not null references tipo_factura(id_tipo_factura),
+monto numeric(11,2) not null,
+impuesto_factura numeric(10,3) not null references impuesto_iva(impuesto_factura),
+monto_con_imp numeric (11,2) not null,
+monto_total numeric (11,2) not null
+)
+
+create table detalle_factura (
+id_detalle_factura int not null primary key identity, 
+id_factura int not null references factura(id_factura),
+id_producto int not null references producto(id_producto),
+precio_venta_detalle numeric(9,2) check(precio_venta_detalle>0),
+cantidad_vendida int not null,
+)
+
+create table estado_reclamo (
+id_estado_reclamo int not null primary key identity,
+estado_reclamo varchar(40),
+id_estado int not null references estado(id_estado)
+)
+
+create table tipo_reclamo (
+id_tipo_r int not null primary key identity,
+tipo_r varchar (100),
+descripcion_tipor varchar(100),
+id_estado int not null references estado(id_estado)
+)
+
+create table reclamo (
+id_reclamo int not null primary key identity,
+descripcion_reclamo varchar (400),
+fecha_ingreso datetime,
+fecha_solucion datetime,
+solucion varchar (400),
+id_estado_reclamo int not null references estado_reclamo(id_estado_reclamo),
+id_tipo_r int not null references tipo_reclamo(id_tipo_r),
+id_cliente int not null references cliente(id_cliente),
+id_facura int not null references factura(id_factura),
+id_usuario int not null references usuario(id_usuario)
+)
+
+create table bitacoras (
+id_bitacora int not null primary key identity (1,1),
+usuario_bitacora varchar(20) not null,
+fecha_bitacora datetime,
+accion varchar(50),
+detalle varchar(400)
+)
+
+select * from estado 
+select * from tipo_usuario
+select * from cliente
+select * from usuario
+select * from unidad
+select * from presentacion
+select * from categoria
+select * from producto 
+select * from tipo_pago
+select * from estado_factura
+select * from tipo_factura
+select * from impuesto_iva
+select * from factura 
+select * from detalle_factura
+select * from estado_reclamo
+select * from tipo_reclamo
+select * from reclamo
+select * from bitacoras
+
+--INSERTS--
+
+insert into estado
+values ('Activo'),
+	   ('Inactivo'),
+	   ('Eliminado')
+
+insert into tipo_usuario
+values ('Administrador', 1),
+	   ('Empleado', 1)
+
+insert into unidad
+values ('Metros', 1),
+	   ('Kilos', 1),
+	   ('Libras', 1),
+	   ('Onzas', 1),
+	   ('Centimetros', 1)
+
+insert into presentacion
+values ('Bolsa', 1),
+       ('Cajas', 1),
+	   ('Botella', 1),
+	   ('Estuche', 1),
+	   ('Cesta', 1)
+
+insert into categoria (nombre_categoria, descripcion_categoria, id_estado)
+values ('Bebidas','Todo tipo de bebidas', 1),
+	   ('Comestibles','Todo tipo de comestibles', 1),
+	   ('Cocina','Eletrodomesticos para la cocina', 1),
+	   ('Moda mujer','Todo tipo de ropa para mujer', 1),
+	   ('Moda hombre','Todo tipo de ropa para hombre', 1),
+	   ('Moda niños','Todo tipo de ropa para niños', 1),
+	   ('Zapatos','Exportados del extranjero', 1),
+	   ('Accesorios','Accesorios para hombre y mujer', 1),
+	   ('Juguetes','Todo tipo de Juguetes de marcas notables', 1),
+	   ('Videojuegos','Todo tipo de Juegos', 1),
+	   ('Electrónica','Leds, Regletas, Arduino, etc', 1),
+	   ('Informática','Todo tipo de hardware', 1),
+	   ('Herramienta manual','Martillos, Palancas, Taladros, etc', 1),
+	   ('Audiovisual','Telefonos, Pantallas, Tablets, etc', 1),
+	   ('Mascotas','Collares, Camas, Shampoo, etc', 1),
+	   ('Otros','Productos que no pueden venderse por si solos', 1)
+
+insert into tipo_pago
+values ('Efectivo','Billetes o Monedas', 1),
+       ('Tarjeta Bancaria','Comision de Intercambio con el Banco', 1)
+
+insert into estado_factura
+values ('Enviada', 'Factura enviada al cliente', 1),
+	   ('No enviada', 'Factura creada pero no enviada al cliente', 1),
+	   ('Eliminada', 'Factura eliminada por un empleado', 1)
+
+insert into tipo_factura
+values ('Credito Fiscal', 1),
+	   ('Consumidor Final', 1)
+
+insert into impuesto_iva
+values (0.13)
+
+insert into estado_reclamo
+values ('Resuelto', 1),
+	   ('Sin Resolver', 1),
+	   ('Anulado', 1)
+
+insert into cliente
+values ('Feranndo Rodrigo', 'Pineda Funes', '31/12/2019', 'Super selectos', 'no', 'no', 12321332, 32132132, 'rodrigo', 123456321, 123132231, 231123123, 1)
+
+insert into producto (codigo_barras, nombre_producto, descripcion_producto, precio_venta_producto, stock_minimo, stock_activo, id_unidad_producto, id_presentacion_producto, id_categoria, id_estado)
+values ('12312345', 'Pantalones', 'Pantalones azules', 10.99, 100, 110, 3, 2, 5, 1)
+
+insert into factura
+values ('10/12/2019',1, 1, 1, 1, 1099, 0.13, 01000, 10000)
+
+insert into detalle_factura
+values (1, 1, 10.99, 100)
+
+select * from estado 
+select * from tipo_usuario
+select * from cliente
+select * from usuario
+select * from unidad
+select * from presentacion
+select * from categoria
+select * from producto 
+select * from tipo_pago
+select * from estado_factura
+select * from tipo_factura 
+select * from impuesto_iva
+select * from factura 
+select * from detalle_factura
+select * from estado_reclamo
+select * from tipo_reclamo
+select * from reclamo
+select * from bitacoras
+
+SELECT COUNT(*) FROM factura
+insert into reclamo
+values ()
+update estado_factura set id_estado = 1 where id_estado_factura = ?
+select * from factura
+
+--CONSULTAS DE REPORTES
+
+--FACTURA
+UPDATE presentacion SET presentacion_producto = 'Bolsa' WHERE id_presentacion_producto = 1

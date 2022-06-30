@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5dc23244-294a-45ff-91da-3733bd931a1e">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="11" width="266" height="36" uuid="1d13ea23-ce3b-4bec-bcf8-3e8b0129e301"/>
+				<textElement>
+					<font fontName="Arial" size="26"/>
+				</textElement>
+				<text><![CDATA[Reporte de Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="123" y="47" width="143" height="20" forecolor="#FF0000" uuid="af3a7946-6557-4855-aaf7-3a39e4cfb3a9"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Producto mas vendido]]></text>
+			</staticText>
+			<image>
+				<reportElement x="266" y="0" width="289" height="79" uuid="1e8731e3-1856-4147-bfc8-603226de2cc1"/>
+				<imageExpression><![CDATA["C:\\Users\\HP\\Desktop\\factu.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="10" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="48" splitType="Stretch">
+			<staticText>
+				<reportElement x="23" y="28" width="100" height="20" uuid="e786d918-5569-4217-9579-2a8c6f4a4804"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre Producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="221" y="28" width="100" height="20" uuid="4fd1bdbb-2b2a-441c-afae-194471a43e91"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre categoria]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="419" y="28" width="118" height="20" uuid="fee021b5-52d0-47d9-8b51-23ec4e3c26ce"/>
+				<textElement>
+					<font fontName="Arial" size="12"/>
+				</textElement>
+				<text><![CDATA[Precio del producto]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="23" y="26" width="100" height="14" uuid="ca094f4b-9363-4b96-b4a2-a78d4e2f81e2"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="502" y="26" width="35" height="14" uuid="eb21c393-1e19-4906-adcb-4aa20bdd5c8e"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="19" width="555" height="1" uuid="b285bcaa-9996-46fb-98ca-086303b7fa7c"/>
+			</line>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

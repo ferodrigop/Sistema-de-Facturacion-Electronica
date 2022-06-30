@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1e0b0035-8295-4463-9e50-7755873a7222">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="87" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="12" width="251" height="37" uuid="af8863f9-c760-4d22-9732-afa51c769d13"/>
+				<textElement>
+					<font fontName="Arial" size="26"/>
+				</textElement>
+				<text><![CDATA[Reporte de Inventario]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="103" y="49" width="148" height="18" forecolor="#FF0033" backcolor="#FFFFFF" uuid="9bafee68-2245-4dca-96b8-dabd0d6e8c82"/>
+				<textElement>
+					<font fontName="Arial" size="14" isBold="false"/>
+				</textElement>
+				<text><![CDATA[Reporte de existencia]]></text>
+			</staticText>
+			<image>
+				<reportElement x="251" y="0" width="304" height="87" uuid="6492f4fe-e16d-4327-a2a0-1a6cc37202cd"/>
+				<imageExpression><![CDATA["C:\\Users\\HP\\Desktop\\factu.jpg"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="11" splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="34" width="127" height="20" uuid="0e6282af-4724-40ae-b3a8-e84d8d6dcdaf"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Nombre del producto]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="171" y="34" width="99" height="20" uuid="aa07ba86-f742-4aea-bf91-83c551b9de6d"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Stock Activo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="34" width="106" height="20" uuid="69df8264-4e65-4763-a424-9f6636711f75"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Stock Inactivo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="450" y="34" width="106" height="20" uuid="a9ac3ef8-23c9-468d-a1e6-2d7c89504d72"/>
+				<textElement>
+					<font fontName="Century" size="12"/>
+				</textElement>
+				<text><![CDATA[Valor de stock]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="217" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="33" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="55" splitType="Stretch">
+			<line>
+				<reportElement x="0" y="15" width="555" height="1" uuid="58aa288b-7a22-4d89-b4b3-97f57c46a7e3"/>
+			</line>
+			<textField>
+				<reportElement x="11" y="35" width="100" height="20" uuid="96e8ad47-9c33-4391-910b-fee0f2c9bc51"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="516" y="35" width="39" height="20" uuid="11f52a09-2c83-4103-a341-b8fdb54b1595"/>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
